@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Music_Player
 {
-    class Song
+    public class Song
     {
         string Name { get; set; }
         int Year { get; set; }

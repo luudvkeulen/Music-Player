@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Music_Player
 {
-    class Artist
+    public class Artist
     {
         string Name { get; set; }
         List<Song> Songs;
@@ -23,7 +23,7 @@ namespace Music_Player
 
         public override string ToString()
         {
-            return base.ToString();
+            return Name;
         }
     }
 }

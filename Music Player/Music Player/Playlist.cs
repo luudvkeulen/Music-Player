@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace Music_Player
 {
-    class Playlist
+    public class Playlist
     {
+        List<Song> Songs;
         string Name { get; set; }
         public Playlist(string name)
         {
             Name = name;
+            Songs = new List<Song>();
         }
 
         public void Add(Song song)
         {
-
+            Songs.Add(song);
         }
 
         public void Add(List<Song> songs)
         {
-
+            Songs.AddRange(songs);
         }
 
         public void Remove(Song song)
