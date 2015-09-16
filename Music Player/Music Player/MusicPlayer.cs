@@ -15,7 +15,8 @@ namespace Music_Player
         List<Artist> artists;
         List<Playlist> playlists;
         List<Song> songs;
-        Song playing;
+        Song playingsong;
+        Playlist playingplaylist;
         public MusicPlayer()
         {
             InitializeComponent();
@@ -46,22 +47,23 @@ namespace Music_Player
 
         void Play(Song song)
         {
-
+            playingsong = song;
         }
 
         void Play(Playlist playlist)
         {
-
+            playingplaylist = playlist;
         }
 
         Song Playing()
         {
-            return playing;
+            return playingsong;
         }
 
         void StopPlaying()
         {
-            playing = null;
+            playingsong = null;
+            playingplaylist = null;
         }
 
         private void btnAddArtist_Click(object sender, EventArgs e)
@@ -90,6 +92,12 @@ namespace Music_Player
             listSongs.DataSource = songs;
         }
 
+        private void UpdatePlayList()
+        {
+            comboPlaylists.DataSource = listPlaylists.DataSource = null;
+            comboPlaylists.DataSource = listPlaylists.DataSource = playlists;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if(txtSongName.Text.Count() > 0 && comboArtists.Items.Count > 0)
@@ -97,10 +105,53 @@ namespace Music_Player
                 Add(new Song(txtSongName.Text, Convert.ToInt32(nmrSongYear.Value), artists[comboArtists.SelectedIndex]));
                 UpdateSongs();
                 txtSongName.ResetText();
+                nmrSongYear.Value = 1900;
             }
             else
             {
                 MessageBox.Show("Vul alle waardes in");
+            }
+        }
+
+        private void btnAddPlaylist_Click(object sender, EventArgs e)
+        {
+            if (txtPlayListname.Text.Count() > 0)
+            {
+                Add(new Playlist(txtPlayListname.Text));
+                UpdatePlayList();
+                txtPlayListname.ResetText();
+            }
+            else
+            {
+                MessageBox.Show("De afspeellijst kan geen lege naam hebben");
+            }
+        }
+
+        private void btnAddToPlaylist_Click(object sender, EventArgs e)
+        {
+            if(listSongs.SelectedIndex > -1 && comboPlaylists.SelectedIndex > -1)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Selecteer eerst een nummer/afspeellijst");
+            }
+        }
+
+        private void btnPlayPlaylist_Click(object sender, EventArgs e)
+        {
+            if (listPlaylists.SelectedIndex > -1)
+            {
+                Play(playlists[listPlaylists.SelectedIndex]);
+            }
+        }
+
+        private void btnPlaySong_Click(object sender, EventArgs e)
+        {
+            if(listSongs.SelectedIndex > -1)
+            {
+                Play(songs[listSongs.SelectedIndex]);
             }
         }
     }

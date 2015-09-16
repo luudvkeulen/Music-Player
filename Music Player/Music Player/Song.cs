@@ -20,7 +20,9 @@ namespace Music_Player
 
         public override string ToString()
         {
-            return null;
+            string songstring;
+            songstring = Artist.ToString() + " - " + Name + " - " + Year.ToString();
+            return songstring;
         }
     }
 }

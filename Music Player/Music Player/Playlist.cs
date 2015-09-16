@@ -28,12 +28,12 @@ namespace Music_Player
 
         public void Remove(Song song)
         {
-
+            Songs.Remove(song);
         }
 
         public override string ToString()
         {
-            return base.ToString();
+            return Name;
         }
     }
 }

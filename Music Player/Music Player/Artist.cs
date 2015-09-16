@@ -18,7 +18,7 @@ namespace Music_Player
 
         public void Add(Song song)
         {
-
+            Songs.Add(song);
         }
 
         public override string ToString()
