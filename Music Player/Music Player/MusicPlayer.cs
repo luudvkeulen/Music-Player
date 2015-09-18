@@ -23,6 +23,35 @@ namespace Music_Player
             artists = new List<Artist>();
             playlists = new List<Playlist>();
             songs = new List<Song>();
+            TestData();
+            //playingsong += new ChangedEventHandler(SongChanged);
+        }
+
+        void TestData()
+        {
+            //Testdata
+            artists.Add(new Artist("Peter"));
+            artists.Add(new Artist("Jan"));
+            artists.Add(new Artist("Jaap"));
+            songs.Add(new Song("Baby", 2011, artists[0]));
+            songs.Add(new Song("Yeah", 1957, artists[0]));
+            songs.Add(new Song("I got swag", 1989, artists[1]));
+            songs.Add(new Song("You know i love you", 2005, artists[1]));
+            songs.Add(new Song("Let her go", 1924, artists[1]));
+            songs.Add(new Song("On the other side", 1979, artists[2]));
+            songs.Add(new Song("I cry everytime", 1994, artists[2]));
+            playlists.Add(new Playlist("Cool songs"));
+            playlists.Add(new Playlist("Chillll"));
+            playlists.Add(new Playlist("HAKKEN"));
+            playlists[0].Songs.Add(songs[0]);
+            playlists[0].Songs.Add(songs[2]);
+            playlists[1].Songs.Add(songs[1]);
+            playlists[1].Songs.Add(songs[3]);
+            playlists[2].Songs.Add(songs[4]);
+            playlists[2].Songs.Add(songs[5]);
+            UpdateArtists();
+            UpdatePlayList();
+            UpdateSongs();
         }
 
         void Add(Artist artist)
@@ -94,8 +123,14 @@ namespace Music_Player
 
         private void UpdatePlayList()
         {
-            comboPlaylists.DataSource = listPlaylists.DataSource = null;
-            comboPlaylists.DataSource = listPlaylists.DataSource = playlists;
+            listPlaylists.DataSource = null;
+            listPlaylists.DataSource = playlists;
+        }
+
+        private void UpdatePlayListSongs(Playlist playlist)
+        {
+            listPlaylistSongs.Items.Clear();
+            listPlaylistSongs.Items.AddRange(playlist.Songs.ToArray());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -129,9 +164,26 @@ namespace Music_Player
 
         private void btnAddToPlaylist_Click(object sender, EventArgs e)
         {
-            if(listSongs.SelectedIndex > -1 && comboPlaylists.SelectedIndex > -1)
+            if(listSongs.SelectedIndex > -1 && listPlaylists.SelectedIndex > -1)
             {
-
+                Playlist playlist = (Playlist)listPlaylists.SelectedItem;
+                /*if (listSongs.SelectedItems.Count > 1)
+                {
+                    List<Song> songs = new List<Song>();
+                    foreach(Object obj in listSongs.SelectedItems)
+                    {
+                        Song song = obj as Song;
+                        songs.Add(song);
+                    }
+                    playlist.Add(songs);
+                    MessageBox.Show("Nummers toegoevoegd aan " + playlist.ToString());
+                }
+                else
+                {*/
+                    playlist.Add((Song)listSongs.SelectedItem);
+                    MessageBox.Show("Nummer toegoevoegd aan " + playlist.ToString());
+                UpdatePlayListSongs(playlist);
+                //}
             }
             else
             {
@@ -149,10 +201,34 @@ namespace Music_Player
 
         private void btnPlaySong_Click(object sender, EventArgs e)
         {
-            if(listSongs.SelectedIndex > -1)
+            if(listSongs.SelectedIndex > -1 && listSongs.SelectedItems.Count > 1)
             {
                 Play(songs[listSongs.SelectedIndex]);
             }
+            else
+            {
+                MessageBox.Show("Selecteer eerst één lied");
+            }
+        }
+
+        private void listPlaylists_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Playlist playlist = (Playlist)listPlaylists.SelectedItem;
+            listPlaylistSongs.Items.Clear();
+            listPlaylistSongs.Items.AddRange(playlist.Songs.ToArray());
+        }
+
+        private void btnPlayfromPlaylist_Click(object sender, EventArgs e)
+        {
+            if(listPlaylistSongs.SelectedIndex > -1)
+            {
+                Play((Song)listPlaylistSongs.SelectedItem);
+            }
+        }
+
+        private void SongChanged(Object sender, EventArgs e)
+        {
+
         }
     }
 }

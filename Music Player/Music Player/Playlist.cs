@@ -8,7 +8,7 @@ namespace Music_Player
 {
     public class Playlist
     {
-        List<Song> Songs;
+        public List<Song> Songs { get; set; }
         string Name { get; set; }
         public Playlist(string name)
         {
