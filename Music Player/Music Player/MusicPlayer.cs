@@ -16,6 +16,29 @@ namespace Music_Player
         List<Playlist> playlists;
         List<Song> songs;
         Song playingsong;
+        Song Playingsong
+        {
+            get { return playingsong; }
+            set
+            {
+                playingsong = value;
+                OnSongChanged();
+            }
+        }
+
+        private void OnSongChanged()
+        {
+           Song song = Playing();
+            if (song != null)
+            {
+                lblPlaying.Text = song.ToString();
+            }
+            else
+            {
+                lblPlaying.Text = "No song/playlist playing";
+            }
+        }
+
         Playlist playingplaylist;
         public MusicPlayer()
         {
@@ -24,8 +47,9 @@ namespace Music_Player
             playlists = new List<Playlist>();
             songs = new List<Song>();
             TestData();
-            //playingsong += new ChangedEventHandler(SongChanged);
         }
+
+        //public event System.EventHandler SongChanged;
 
         void TestData()
         {
@@ -76,7 +100,8 @@ namespace Music_Player
 
         void Play(Song song)
         {
-            playingsong = song;
+            //playingsong = song;
+            Playingsong = song;
         }
 
         void Play(Playlist playlist)
@@ -91,7 +116,7 @@ namespace Music_Player
 
         void StopPlaying()
         {
-            playingsong = null;
+            Playingsong = null;
             playingplaylist = null;
         }
 
@@ -201,13 +226,13 @@ namespace Music_Player
 
         private void btnPlaySong_Click(object sender, EventArgs e)
         {
-            if(listSongs.SelectedIndex > -1 && listSongs.SelectedItems.Count > 1)
+            if(listSongs.SelectedIndex > -1)
             {
                 Play(songs[listSongs.SelectedIndex]);
             }
             else
             {
-                MessageBox.Show("Selecteer eerst één lied");
+                MessageBox.Show("Selecteer eerst een lied");
             }
         }
 
@@ -226,9 +251,9 @@ namespace Music_Player
             }
         }
 
-        private void SongChanged(Object sender, EventArgs e)
+        private void btnStopPlaying_Click(object sender, EventArgs e)
         {
-
+            StopPlaying();
         }
     }
 }

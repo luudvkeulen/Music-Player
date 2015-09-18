@@ -53,6 +53,7 @@
             this.btnPlayPlaylist = new System.Windows.Forms.Button();
             this.listPlaylistSongs = new System.Windows.Forms.ListBox();
             this.btnPlayfromPlaylist = new System.Windows.Forms.Button();
+            this.btnStopPlaying = new System.Windows.Forms.Button();
             this.groupAddArtist.SuspendLayout();
             this.groupAddSong.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrSongYear)).BeginInit();
@@ -347,11 +348,23 @@
             this.btnPlayfromPlaylist.UseVisualStyleBackColor = true;
             this.btnPlayfromPlaylist.Click += new System.EventHandler(this.btnPlayfromPlaylist_Click);
             // 
+            // btnStopPlaying
+            // 
+            this.btnStopPlaying.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStopPlaying.Location = new System.Drawing.Point(412, 5);
+            this.btnStopPlaying.Name = "btnStopPlaying";
+            this.btnStopPlaying.Size = new System.Drawing.Size(80, 36);
+            this.btnStopPlaying.TabIndex = 15;
+            this.btnStopPlaying.Text = "Stop";
+            this.btnStopPlaying.UseVisualStyleBackColor = true;
+            this.btnStopPlaying.Click += new System.EventHandler(this.btnStopPlaying_Click);
+            // 
             // MusicPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1161, 514);
+            this.Controls.Add(this.btnStopPlaying);
             this.Controls.Add(this.btnPlayfromPlaylist);
             this.Controls.Add(this.listPlaylistSongs);
             this.Controls.Add(this.btnPlayPlaylist);
@@ -406,6 +419,7 @@
         private System.Windows.Forms.Button btnPlayPlaylist;
         private System.Windows.Forms.ListBox listPlaylistSongs;
         private System.Windows.Forms.Button btnPlayfromPlaylist;
+        private System.Windows.Forms.Button btnStopPlaying;
     }
 }
 
